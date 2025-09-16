@@ -7,6 +7,7 @@ $sql2 = "SELECT * FROM  film WHERE filter = 'now playing film' ";
 $query1 = mysqli_query($koneksi, $sql1);
 $query2 = mysqli_query($koneksi, $sql2);
 
+
 if (isset($_GET['nowplay'])) {
     $id = $_GET['nowplay'];
     if (nowplay($id) > 0) {
@@ -51,9 +52,9 @@ if (isset($_GET['upcom'])) {
         
         <center><h1>Film App</h1></center>
         <div class="search">
-            <label for="">Search:</label>
-            <input type="search" name="search" placeholder=" Cari Buku ">
-        </div><br><br>
+            <label for="search">Search:</label>
+            <input type="text" id="search" placeholder="Cari Film...">
+        </div>
         
         <div class="film_app">
             <form action="proses_tambah.php" method="post" enctype="multipart/form-data">
@@ -141,5 +142,23 @@ if (isset($_GET['upcom'])) {
         </div>
 
     </div>
+
+    <script>
+        const searchInput = document.getElementById('search');
+        const cards = document.querySelectorAll('.card');
+
+        searchInput.addEventListener('keyup', function() {
+            const keyword = this.value.toLowerCase();
+            cards.forEach(card => {
+                const text = card.innerText.toLowerCase();
+                if (text.includes(keyword)) {
+                    card.style.display = "flex";
+                } else {
+                    card.style.display = "none";
+                }
+            });
+        });
+    </script>
+
 </body>
 </html>
